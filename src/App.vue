@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import MyGame from "./components/MyGame.vue";
+import Game from "./components/Game.vue";
 </script>
 
 <template>
-  <MyGame />
+  <Game />
 </template>
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import MyGame from "./components/MyGame.vue";
 </script>
 
 <template>
-  <h1>Test</h1>
+  <MyGame />
 </template>
 

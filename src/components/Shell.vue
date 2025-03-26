@@ -10,7 +10,7 @@
             'fade-out': fadeOutShell,
             'disable': gameState !== 'guessing'
         }"
-        :style="{ transform: shell.transform }"
+        :style="getShellStyle()"
         @click="handleClick"
     >
         <transition name="fade">
@@ -55,29 +55,41 @@
             emit("select");
         });
     }
+
+    const getShellStyle = () => {
+        return {
+            transform: props.shell.transform,
+            cursor: props.gameState === 'guessing' ? 'pointer' : 'default'
+        };
+    }
 </script>
 
 <style>
     .shell {
         position: relative;
-        cursor: pointer;
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        transition: transform 0.5s ease-in-out;
+        will-change: transform;
     }
 
     .shell-svg {
         width: 80px;
         height: 80px;
+        transition: opacity 0.5s ease-in-out, transform 0.3s ease;
     }
 
-    .shell:hover {
+    .shell-svg.transparent {
+        opacity: 0.2;
+    }
+
+    .shell:hover .shell-svg {
         transform: translateY(-5px);
     }
 
-    .shell.active {
+    .shell.active .shell-svg {
         transform: translateY(-10px);
     }
 
-    .shell.selected {
+    .shell.selected .shell-svg {
         transform: translateY(-15px) scale(1.05);
     }
 
@@ -98,6 +110,26 @@
         height: 60px;
         z-index: 0;
         transition: opacity 0.5s ease-out;
+    }
+
+    .pearl-fade-enter-active,
+    .pearl-fade-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .pearl-fade-enter-from,
+    .pearl-fade-leave-to {
+        opacity: 0;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
     }
 
     .shell-top {
@@ -142,21 +174,4 @@
         background-color: #ffd700;
     }
 
-    .pearl-fade-enter-active,
-    .pearl-fade-leave-active {
-        transition: opacity 0.5s ease;
-    }
-
-    .pearl-fade-enter-from,
-    .pearl-fade-leave-to {
-        opacity: 0;
-    }.pearl-fade-enter-active,
-    .pearl-fade-leave-active {
-        transition: opacity 0.5s ease;
-    }
-
-    .pearl-fade-enter-from,
-    .pearl-fade-leave-to {
-        opacity: 0;
-    }
 </style>

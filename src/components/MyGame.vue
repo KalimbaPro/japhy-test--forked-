@@ -78,13 +78,9 @@ import Shell from './Shell.vue';
 
         pearlPosition.value = await fetchRandomPosition();
 
-        const shuffleDuration = 2000;
-
-        setTimeout(() => {
-            isShuffling.value = false;
-            gameState.value = 'guessing';
-            message.value = 'Où est la perle? Cliquez sur un coquillage!';
-        }, shuffleDuration);
+        isShuffling.value = false;
+        gameState.value = 'guessing';
+        message.value = 'Où est la perle? Cliquez sur un coquillage!';
     }
 
     const startGame = async () => {
@@ -105,11 +101,7 @@ import Shell from './Shell.vue';
 
         showPearl.value = false;
 
-        await new Promise(resolve => setTimeout(resolve, 500));
-
         isMerging.value = true;
-
-        await new Promise(resolve => setTimeout(resolve, 50));
 
         showPearl.value = false;
 
